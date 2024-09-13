@@ -1,0 +1,75 @@
+sudo yum remove <<PackageName>>                      To Remove Package                                    
+rpm -qa | grep java                                  To cheack java packages
+netstat -tulnp | grep -i <<Port Number>>             To chek port are Listen or not
+netstat -tulnp                                       To cheack all port which is opened on server.
+lsblk                                                To chek the Disk partition and mount point
+rpm -qa | grep <<PackageName>>                       To check the packges on server
+uptime                                               To check the timing
+history                                              To check the commonds which we are using
+ls                                                   To List the files present in current directory
+ls -ltr                                              To List the files present in current directory with timestamp and in reverce order meance letest file at the end.
+pwd                                                  To know in which directory we are
+stat                                                 To check times time of file
+mkdir <<DirectoryName>>                              To Make new directory
+rmdir <<DirectoryName>>                              To remove the directory
+cat   <<FileName>>                                   To View the contantent of the file
+nano  <<FileName>>                                   To create the file
+vi    <<FileName>>                                   To Edit the text file
+touch <<FileName1>> <<FileName2>>                    To make the empty files
+touch file{1..10}                                    To make the multiple empty files. 
+echo  <<FileName1>> <<FileName2>>                    To make file and reflect the sms every where 
+cd                                                   To chang the directory
+cp                                                   To copy the file from source_path to destination_path
+mv                                                   To Rename and move the file from source_path to destination_path
+top                                                  To check the running procces of the system
+free -m                                              To cheack the RAM memry utilization in MB
+df -h                                                To cheack the Hard Disk partition utilization
+ps                                                   To check the current running processes on system
+kill                                                 To Kill the any process based on PID [Process ID]
+ls --all                                             To View the long list of the file
+chmod                                                To change the rwx access
+chown                                                To change the owner
+touch -a                                             To replace the access time of file with current timestamp
+touch -m                                             To replace the modified time of file with current timestamp
+mkdir -p                                             To make directory inside doirectoy
+tar                                                  To make file ad tar file becouse if we need to compress any file [zip] wi have to make that file as .tar file
+gzip                                                 To make .zip file
+gunzip                                               To extract the file
+tail -20  <<FileName>>                               To view the least 20 lines of the file
+head -20  <<FileName>>                               To View the first 20 lines of the file   
+more  <<FileName>>     
+less  <<FileName>>
+tac                                                  To view the containt of the file in end to start
+sort                                                 To sort the contain by alfabetical order
+whoami                                               To know the current user of the system
+adduser                                              To add the new user into the system
+id    
+free -m > sample.txt                                 We can Redirect the output in sample.txt file using [>] but it override the exsisting containt
+free -m >> sample.txt                                We can Redirect the output in sample.txt file using [>>] but it will add output without overriding.
+which   <<packageName>>                              To find the software is present or not
+apt-get update                                       To update the package
+uname -a  
+service <<packageName>> status                       To cheack the status of the tool
+service <<packageName>> start                        To steart the tool
+service <<packageName>> stop                         To stop the tool
+grep    <<word>> <<FileName>>                        To fiend the any word in to file
+grep -i <<word>> <<FileName>>                        To fiend the any word in to file with ignoring case sencitivity.
+/<<word>>                                            To fiend the any word inside file
+ifconfig                                             To check ip addrese
+man                                                  To get info about any commond use and when to execute
+ssh                                                  To conect the another system remotly
+   
+file /home/ubuntu/Dockerfile/Heard_Link.txt      command is used to find file type
+                 ^
+				 |
+          <<File path>>
+		  
+ln -s <orignalFilePath> <LinkFilePath>   Command is used to create soft link.
+unlink <<Link File Name>>                Command is used to remove soft link.
+ 
+
+
+		  
+
+
+
