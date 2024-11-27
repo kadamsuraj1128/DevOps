@@ -1,0 +1,8 @@
+#!bin/bash
+NOW=`/usr/bin/date +%d%h%Y_%H%M`
+(/tomcat/installation/apache-tomcat/bin/shutdown.sh
+echo "Tomcat services has been stoped"
+sleep 2
+/tomcat/installation/apache-tomcat/bin/startup.sh
+echo "Tomcat services has been started"
+) >> /tomcat/log_$NOW.txt

@@ -1,0 +1,60 @@
+#!/bin/sh
+ NOW=`/usr/bin/date +%d%h%Y_%H%M`
+# Configuration
+(BACKUP_DIR="/tomcat/installation/backup"  # Directory where backups are stored
+WEBAPPS_DIR="/tomcat/installation/apache-tomcat/webapps"  # Tomcat webapps directory
+WAR_FILE="sample.war"  # Replace with the name of your WAR file
+
+# Function to backup the current WAR file with a timestamp
+backup_war() {
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    echo "Backing up the current WAR file..."
+    cp "$WEBAPPS_DIR/$WAR_FILE" "$BACKUP_DIR/${WAR_FILE%.war}_$TIMESTAMP.war"
+    echo "Backup created: $BACKUP_DIR/${WAR_FILE%.war}_$TIMESTAMP.war"
+}
+
+# Function to delete old backups excluding the latest 2
+cleanup_old_backups() {
+    echo "Cleaning up old backup files, keeping the latest 2 backups..."
+
+    # List .war files sorted by modification time (newest first) and skip the latest 2
+    files_to_delete=$(ls -1t "$BACKUP_DIR"/*.war 2>/dev/null | tail -n +3)
+
+    if [ -z "$files_to_delete" ]; then
+        echo "No old backups to delete."
+    else
+        echo "Deleting the following old backup files:"
+        echo "$files_to_delete"
+        # Delete old files
+        echo "$files_to_delete" | xargs rm -f
+        echo "Old backups deleted."
+    fi
+}
+
+# Check if backup directory exists
+if [ ! -d "$BACKUP_DIR" ]; then
+    echo "Error: Backup directory $BACKUP_DIR does not exist."
+    exit 1
+fi
+
+# Backup the current WAR file
+backup_war
+
+# Cleanup old backups
+cleanup_old_backups
+
+echo "Backup and cleanup completed."
+
+NOW=`/usr/bin/date +%d%h%Y_%H%M`
+stop=`ps -ef|grep -i tomcat|grep -v grep|grep -v tomcat_server.sh|awk '{print $2}'`
+kill -9 $stop
+cd /tomcat/installation/src
+cp sample.war /tomcat/installation/apache-tomcat/webapps
+/tomcat/installation/apache-tomcat/bin/startup.sh
+sleep 4
+if [ $? = 0 ]; then
+echo "Deployment and Restart Done"
+else echo "Deployment OR Server start failed"
+fi
+echo "Script Ended"
+) >> /tomcat/installation/log/deploymentlog_$NOW.txt
