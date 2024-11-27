@@ -1,0 +1,94 @@
+robocopy %Destination% D:\workflow /E  /IS /MOVE /XD D:\Automation\source \move \R:100000000 /W:60
+ 
+Meaning of above line in detail 
+==============================================================================================
+Here's a breakdown of each part of the command you provided:
+ 
+robocopy %DeploymentFiles% D:\workflow /E /IS /MOVE /XD D:\automation\api /move /R:100000000 /W:60
+ 
+1. robocopy
+Starts the robocopy command, a powerful file copy/move utility in Windows.
+ 
+ 
+2. %DeploymentFiles% Represents the source folder to copy from. This is an environment variable that holds the path of the source directory. Make sure %DeploymentFiles% is set in your environment variables, or it should be defined earlier in the script like this:
+ 
+set "DeploymentFiles=C:\path\to\source_folder"
+ 
+ 
+3. D:\workflow Specifies the destination folder to copy to. In this case, D:\workflow is where the files and folders will be moved.
+ 
+ 
+4. /E Copies all subdirectories, including empty ones, from the source to the destination. This ensures the entire directory structure is included in the move.
+ 
+ 
+5. /IS Includes files that have the same size and timestamp in the operation. Without /IS, robocopy might skip files in the destination that match those in the source. Using /IS forces these "same" files to be included.
+ 
+ 
+6. /MOVE Moves files and folders from the source to the destination, deleting them from the source after copying. This is useful for transferring files while cleaning up the original location.
+ 
+ 
+7. /XD D:\automation\api Excludes the directory D:\automation\api from the operation. If this folder exists within the source, it and its contents will be skipped. You can specify multiple directories after /XD by separating them with spaces.
+ 
+ 
+8. /move This is a duplicate of /MOVE and doesn’t need to be repeated here. robocopy will ignore the duplicate, but removing it from the command will make it cleaner.
+ 
+ 
+9. /R:100000000 Sets the retry count to 100,000,000. If robocopy encounters an error copying a file, it will retry up to this many times before giving up. Setting such a high retry count is unusual and could potentially cause robocopy to hang if files can’t be accessed. A lower number (like /R:5 or /R:10) is more common.
+ 
+ 
+10. /W:60 Sets the wait time between retries to 60 seconds. If robocopy encounters an issue copying a file, it will wait 60 seconds before each retry. This helps avoid immediate repeated attempts that might fail if the file is temporarily unavailable.
+ 
+ 
+ 
+Cleaned-Up Version
+ 
+Here’s a more typical version of the command without duplicates and with a more reasonable retry count:
+ 
+robocopy %DeploymentFiles% D:\workflow /E /IS /MOVE /XD D:\automation\api /R:5 /W:10
+ 
+This version:
+ 
+Moves all files and directories, including empty ones, from the source to D:\workflow.
+ 
+Includes "same" files.
+ 
+Excludes the D:\automation\api directory.
+ 
+Retries up to 5 times with a 10-second wait.
+=================================================================================================================
+
+You can create a .bat file to stop an application pool in IIS using the appcmd command. Here’s how:
+ 
+1. Open Notepad (or any text editor).
+ 
+ 
+2. Copy the following code and paste it into the editor:
+ 
+@echo off
+REM Replace 'DefaultAppPool' with the name of your application pool
+ 
+set APPPOOL_NAME=DefaultAppPool
+ 
+echo Stopping application pool: %APPPOOL_NAME%
+%windir%\system32\inetsrv\appcmd stop apppool /apppool.name:%APPPOOL_NAME%
+ 
+echo Application pool stopped.
+ 
+ 
+3. Replace DefaultAppPool with the name of the application pool you want to stop.
+ 
+ 
+4. Save the file with a .bat extension, for example, StopAppPool.bat.
+ 
+ 
+ 
+To run it:
+ 
+1. Right-click the .bat file.
+ 
+ 
+2. Select Run as administrator (required for permissions to control IIS).
+ 
+ 
+ 
+This will stop the specified application pool in IIS.
